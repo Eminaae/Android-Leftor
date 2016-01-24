@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">ToDoApp</string>
+    <string name="app_name">To Do App</string>
     <string name="welcome_screen">Loading application...</string>
 
 <!-- TODO: Remove or change this placeholder text -->
