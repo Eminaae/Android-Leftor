@@ -4,30 +4,38 @@ package ba.leftor.exercises.todoapp.fragments;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.List;
+
 import ba.leftor.exercises.todoapp.R;
+import ba.leftor.exercises.todoapp.adapters.TaskAdapter;
+import ba.leftor.exercises.todoapp.models.Task;
+import ba.leftor.exercises.todoapp.models.TaskGroup;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class ToDoGroupFragment extends Fragment {
 
-
     private OnFragmentInteractionListener listener;
+    private RecyclerView recyclerView;
+    private Task task;
+    private TaskGroup taskGroup;
+    private TaskAdapter taskAdapter;
+    private List<Task> tasks;
+
     public ToDoGroupFragment() {
         // Required empty public constructor
     }
 
-    public static ToDoGroupFragment newInstance(String param1, String param2){
+    public static ToDoGroupFragment newInstance(TaskGroup taskGroup){
         ToDoGroupFragment fragment = new ToDoGroupFragment();
-        Bundle bundle = new Bundle();
-        bundle.putString("ee", param1);
-        bundle.putString("ee", param2);
-        fragment.setArguments(bundle);
-
+        fragment.taskGroup = taskGroup;
         return fragment;
     }
 
@@ -43,8 +51,14 @@ public class ToDoGroupFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_to_do_group, container, false);
+        View view = inflater.inflate(R.layout.fragment_to_do_group, container, false);
+        recyclerView = (RecyclerView) view.findViewById(R.id.todo_recycler_view);
+        this.taskAdapter = new TaskAdapter(this.taskGroup.getTaskList());
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        recyclerView.setAdapter(taskAdapter);
+
+        taskAdapter.notifyDataSetChanged();
+        return view;
     }
 
 

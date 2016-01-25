@@ -14,7 +14,10 @@
     <android.support.design.widget.TabLayout
         android:id="@+id/tabs"
         android:layout_width="match_parent"
-        android:layout_height="50dp">
+        android:layout_height="50dp"
+        app:tabGravity="center"
+        app:tabMode="scrollable"
+        app:tabSelectedTextColor="@color/colorPrimaryDark">
     </android.support.design.widget.TabLayout>
 
     <RelativeLayout
@@ -38,8 +41,8 @@
             android:layout_marginRight="10dp"
             app:elevation="6dp"
             app:pressedTranslationZ="12dp">
-
         </android.support.design.widget.FloatingActionButton>
+
     </RelativeLayout>
 
 </LinearLayout>
