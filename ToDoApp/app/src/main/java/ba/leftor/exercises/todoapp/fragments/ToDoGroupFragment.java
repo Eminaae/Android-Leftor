@@ -41,6 +41,7 @@ public class ToDoGroupFragment extends Fragment {
 
     public interface OnFragmentInteractionListener{
         public void onFragmentInteraction(Uri uri);
+        void onAddTaskGroup();
     }
     @Override
     public void onCreate(Bundle savedInstanceState){

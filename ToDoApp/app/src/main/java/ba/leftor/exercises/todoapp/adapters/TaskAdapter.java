@@ -19,7 +19,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
 
     private List<Task> taskList = new ArrayList<>();
     private RecyclerView recyclerView;
-    private Task task;
+
 
 
     public TaskAdapter(List<Task> tasks) {
@@ -49,6 +49,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
 
         public TextView taskName;
         public TextView taskDescription;
+        private Task task;
 
         public ViewHolder(View itemView) {
             super(itemView);

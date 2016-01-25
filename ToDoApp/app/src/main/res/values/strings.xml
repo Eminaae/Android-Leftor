@@ -1,9 +1,14 @@
 <resources>
     <string name="app_name">To Do App</string>
     <string name="welcome_screen">Loading application...</string>
-
-<!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="task_name">Task name</string>
     <string name="task_description">Task description</string>
+    <string name="edit_task_name_dialog">Edit task name</string>
+    <string name="edit_task_description_dialog">Edit task description</string>
+    <string name="task_dialog_add_new_task_btn">Add task</string>
+    <string name="task_dialog_cancel_btn">Cancel</string>
+    <string name="edit_task_group_name_dialog">Edit task group name</string>
+    <string name="task_dialog_add_new_group_btn">Add group</string>
+    <string name="task_group_dialog_cancel_btn">Cancel</string>
 </resources>

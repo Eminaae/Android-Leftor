@@ -46,7 +46,7 @@ public class TaskGroup {
         this.taskList = taskList;
     }
 
-    public List<TaskGroup> mock(){
+    public static List<TaskGroup> mock(){
 
         List<TaskGroup> taskGroupList = new ArrayList<>();
         TaskGroup house = new TaskGroup(0, "House");
@@ -63,6 +63,8 @@ public class TaskGroup {
         taskList.add(new Task("Writing", "Email", work.getGroupId()));
         taskList.add(new Task("Climbing", "Cliff", sport.getGroupId()));
 
+        sport.addAll(taskList);
+
         return taskGroupList;
     }
 
@@ -74,6 +76,14 @@ public class TaskGroup {
         return taskGroups;
     }
 
+    public void addAll(List<Task> tasks){
+        this.taskList.addAll(tasks);
+    }
+
+    public void add(Task task){
+        this.taskList.add(task);
+
+    }
     @Override
     public String toString() {
         return this.groupName;
