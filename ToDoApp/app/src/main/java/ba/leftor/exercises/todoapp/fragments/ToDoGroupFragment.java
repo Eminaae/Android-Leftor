@@ -1,6 +1,7 @@
 package ba.leftor.exercises.todoapp.fragments;
 
 
+import android.app.Activity;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -20,7 +21,7 @@ import ba.leftor.exercises.todoapp.models.TaskGroup;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ToDoGroupFragment extends Fragment {
+public class ToDoGroupFragment extends Fragment implements AddTaskFragmentDialog.OnInteractionListener {
 
     private OnFragmentInteractionListener listener;
     private RecyclerView recyclerView;
@@ -37,6 +38,13 @@ public class ToDoGroupFragment extends Fragment {
         ToDoGroupFragment fragment = new ToDoGroupFragment();
         fragment.taskGroup = taskGroup;
         return fragment;
+    }
+
+    @Override
+    public void save(Task task, TaskGroup taskGroup) {
+        taskGroup.add(task);
+        this.taskAdapter.notifyItemInserted(taskGroup.getTaskList().indexOf(task));
+
     }
 
     public interface OnFragmentInteractionListener{
@@ -60,6 +68,17 @@ public class ToDoGroupFragment extends Fragment {
 
         taskAdapter.notifyDataSetChanged();
         return view;
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        try {
+            listener = (OnFragmentInteractionListener) activity;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(activity.toString()
+                    + " must implement OnFragmentInteractionListener");
+        }
     }
 
 

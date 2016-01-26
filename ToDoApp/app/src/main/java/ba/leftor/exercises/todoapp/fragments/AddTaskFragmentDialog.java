@@ -51,30 +51,30 @@ public class AddTaskFragmentDialog extends DialogFragment implements View.OnClic
         this.newTaskDescription = (EditText) view.findViewById(R.id.edit_task_description_dialog);
         this.taskGroupSpinner = (Spinner) view.findViewById(R.id.select_task_group_spinner);
         this.addTaskBtn = (Button) view.findViewById(R.id.task_dialog_add_new_task_btn);
-        addTaskBtn.setTag(TAG_ADD_TASK);
+        this.addTaskBtn.setTag(TAG_ADD_TASK);
         this.cancelTaskBtn = (Button) view.findViewById(R.id.task_dialog_cancel_btn);
-        cancelTaskBtn.setTag(CANCEL_DIALOG);
+        this.cancelTaskBtn.setTag(CANCEL_DIALOG);
+
+        addTaskBtn.setOnClickListener(this);
+        cancelTaskBtn.setOnClickListener(this);
+
         this.taskGroupArrayAdapter = new ArrayAdapter<TaskGroup>(getActivity(),android.R.layout.simple_spinner_item, taskGroupList);
         this.taskGroupSpinner.setAdapter(taskGroupArrayAdapter);
         this.taskGroupArrayAdapter.notifyDataSetChanged();
         this.taskGroupSpinner.setSelection(taskGroupList.indexOf(taskGroup));
 
-        addTaskBtn.setOnClickListener(this);
-        cancelTaskBtn.setOnClickListener(this);
-
         return view;
-
     }
 
     @Override
     public void onClick(View view) {
-        if(view.getTag().equals(TAG_ADD_TASK) || listener != null){
+        if(view.getTag().equals(TAG_ADD_TASK)){
             TaskGroup selectedGroup = (TaskGroup) taskGroupSpinner.getSelectedItem();
             Task task = new Task();
             task.setTaskName(newTaskName.getText().toString());
-            newTaskDescription.setText(newTaskDescription.getText().toString());
+            task.setTaskDescription(newTaskDescription.getText().toString());
             task.setGroupId(selectedGroup.getGroupId());
-            listener.save(task, selectedGroup);
+            this.listener.save(task, selectedGroup);
             dismiss();//to close dialog
         }
         if(view.getTag().equals(CANCEL_DIALOG)){

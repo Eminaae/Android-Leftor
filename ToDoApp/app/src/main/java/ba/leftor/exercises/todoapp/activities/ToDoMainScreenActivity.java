@@ -1,5 +1,6 @@
 package ba.leftor.exercises.todoapp.activities;
 
+import android.app.FragmentTransaction;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -20,14 +21,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ba.leftor.exercises.todoapp.R;
+import ba.leftor.exercises.todoapp.fragments.AddTaskFragmentDialog;
+import ba.leftor.exercises.todoapp.fragments.AddTaskGroupFragmentDialog;
 import ba.leftor.exercises.todoapp.fragments.ToDoGroupFragment;
+import ba.leftor.exercises.todoapp.models.Task;
 import ba.leftor.exercises.todoapp.models.TaskGroup;
 
 /**
  * Created by Emina on 24.1.2016.
  */
 public class ToDoMainScreenActivity extends AppCompatActivity implements ToDoGroupFragment.OnFragmentInteractionListener,
-        View.OnClickListener{
+        View.OnClickListener,
+        AddTaskGroupFragmentDialog.OnInteractionListener,
+        AddTaskFragmentDialog.OnInteractionListener{
 
     public static final String TAG_ADD_NEW_TASK = "Add a new task";
     public static final String TAG_ADD_NEW_GROUP = "Add a new task group";
@@ -100,18 +106,41 @@ public class ToDoMainScreenActivity extends AppCompatActivity implements ToDoGro
     public void onClick(View view) {
         if(view.getTag().equals(TAG_ADD_NEW_TASK)){
             TaskGroup taskGroup = taskGroupList.get(viewPager.getCurrentItem());
+            AddTaskFragmentDialog fragmentDialog = AddTaskFragmentDialog.newInstance(taskGroup, taskGroupList);
+            fragmentDialog.show(getSupportFragmentManager(),"Task");
 
         }
         if(view.getTag().equals(TAG_ADD_NEW_GROUP)){
-            TaskGroup taskGroup = taskGroupList.get(viewPager.getCurrentItem());
+            onAddTaskGroup();
         }
-        closeOptionsMenu();
     }
+
 
 
     @Override
     public void onAddTaskGroup() {
-       TaskGroup taskGroup = taskGroupList.get(viewPager.getCurrentItem());
+        TaskGroup taskGroup = taskGroupList.get(viewPager.getCurrentItem());
+        AddTaskGroupFragmentDialog fragmentDialog = AddTaskGroupFragmentDialog.newInstance(taskGroup, taskGroupList);
+        fragmentDialog.show(getSupportFragmentManager(), "Task group");
+
+    }
+
+    @Override
+    public void save(TaskGroup taskGroup) {
+        taskGroupList.add(taskGroup);
+        int position = taskGroupList.size() - 1;
+        toDoMainScreenAdapter.notifyDataSetChanged();
+        tabLayout.setupWithViewPager(viewPager);
+        viewPager.setCurrentItem(position);
+
+    }
+
+    @Override
+    public void save(Task task, TaskGroup taskGroup) {
+        taskGroup.add(task);
+        toDoMainScreenAdapter.notifyDataSetChanged();
+        viewPager.setCurrentItem(taskGroupList.indexOf(taskGroup), true);
+
 
     }
 
