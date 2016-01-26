@@ -25,8 +25,8 @@ public class AddTaskFragmentDialog extends DialogFragment implements View.OnClic
     public static final String CANCEL_DIALOG = "Cancel dialog";
     private TaskGroup taskGroup;
     private List<TaskGroup> taskGroupList;
-    private EditText taskName;
-    private EditText taskDescription;
+    private EditText newTaskName;
+    private EditText newTaskDescription;
     private Spinner taskGroupSpinner;
     private Button addTaskBtn;
     private Button cancelTaskBtn;
@@ -47,8 +47,8 @@ public class AddTaskFragmentDialog extends DialogFragment implements View.OnClic
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
         View view = inflater.inflate(R.layout.dialog_add_task, container, false);
-        this.taskName = (EditText) view.findViewById(R.id.edit_task_name_dialog);
-        this.taskDescription = (EditText) view.findViewById(R.id.edit_task_description_dialog);
+        this.newTaskName = (EditText) view.findViewById(R.id.edit_task_name_dialog);
+        this.newTaskDescription = (EditText) view.findViewById(R.id.edit_task_description_dialog);
         this.taskGroupSpinner = (Spinner) view.findViewById(R.id.select_task_group_spinner);
         this.addTaskBtn = (Button) view.findViewById(R.id.task_dialog_add_new_task_btn);
         addTaskBtn.setTag(TAG_ADD_TASK);
@@ -71,8 +71,8 @@ public class AddTaskFragmentDialog extends DialogFragment implements View.OnClic
         if(view.getTag().equals(TAG_ADD_TASK) || listener != null){
             TaskGroup selectedGroup = (TaskGroup) taskGroupSpinner.getSelectedItem();
             Task task = new Task();
-            task.setTaskName(taskName.getText().toString());
-            taskDescription.setText(taskDescription.getText().toString());
+            task.setTaskName(newTaskName.getText().toString());
+            newTaskDescription.setText(newTaskDescription.getText().toString());
             task.setGroupId(selectedGroup.getGroupId());
             listener.save(task, selectedGroup);
             dismiss();//to close dialog
